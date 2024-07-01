@@ -1,0 +1,49 @@
+package ${_package};
+
+import ${_packageDTOsEntities}.BaseCreateDTO;
+import ${_packageEntities}.*;
+import lombok.Getter;
+import lombok.Setter;
+import jakarta.validation.constraints.*;
+import org.springframework.lang.Nullable;
+import java.time.LocalDate;
+
+@Getter
+@Setter
+public class ${className}CreateDTO extends BaseCreateDTO<${className}> {
+    <#list fields as field>
+        <#list field.constraints as constraint>
+    ${constraint.constraintDTO}
+        </#list>
+    private ${field.dataType} ${field.identifier};
+    </#list>
+    <#list relations as relation>
+        <#list relation.constraints as constraint>
+    ${constraint.constraintDTO}
+        </#list>
+    private Long ${relation.identifier};
+    </#list>
+
+    @Override
+    public ${className} asEntity() {
+        ${className} ${classNameCamelCase} = new ${className}();
+        <#list fields as field>
+        ${classNameCamelCase}.${field._setIdentifier}(this.${field._getIdentifier}());
+        </#list>
+        <#list relations as relation>
+        ${classNameCamelCase}.${relation._setIdentifier}(this.${relation._getIdentifier}Entity());
+        </#list>    
+        return ${classNameCamelCase};
+    }
+
+    <#list relations as relation>
+    private ${relation.dataType} ${relation._getIdentifier}Entity(){
+        if(this.${relation._getIdentifier}()!=null){
+            ${relation.dataType} ${relation.identifierCamelCase} = new ${relation.dataType}();
+            ${relation.identifierCamelCase}.setId(this.${relation._getIdentifier}());
+            return ${relation.identifierCamelCase};
+        }
+        return null;
+    }
+    </#list>
+}

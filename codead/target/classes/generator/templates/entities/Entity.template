@@ -1,0 +1,41 @@
+package ${_package};
+
+import ${_packageDTOsEntities}.${classNameCamelCase}.${className}ShowDTO;
+import jakarta.persistence.*;
+import lombok.*;
+import java.time.LocalDate;
+
+@Entity
+@Table(name = "${classNameSnakeCase}")
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
+public class ${className} extends BaseEntity {
+    <#list fields as field>
+    ${field.column}
+    private ${field.dataType} ${field.identifier};
+    </#list>
+    <#list relations as relation>
+    ${relation.manyToOne}
+        <#if relation.joinColumn??>
+    ${relation.joinColumn}
+        </#if>
+    private ${relation.dataType} ${relation.identifier};
+    </#list>
+
+    @Override
+    public ${className}ShowDTO asShowDTO(){
+        ${className}ShowDTO ${classNameCamelCase}ShowDTO = new ${className}ShowDTO();
+        ${classNameCamelCase}ShowDTO.setId(this.getId());
+        ${classNameCamelCase}ShowDTO.setActivated(this.getActivated());
+        <#list fields as field>
+        ${classNameCamelCase}ShowDTO.${field._setIdentifier}(this.${field._getIdentifier}());
+        </#list>
+        <#list relations as relation>
+        ${classNameCamelCase}ShowDTO.${relation._setIdentifier}(this.${relation._getIdentifier}().asShowDTO());
+        </#list>
+        return ${classNameCamelCase}ShowDTO;
+    }
+}

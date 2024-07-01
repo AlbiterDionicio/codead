@@ -1,0 +1,21 @@
+*(HECHO)Implementar comunicación rest api, para escuchar la generación
+*(HECHO)Investigar sobre cómo utilizar antlr4
+*(HECHO)Implementar antlr4
+*(HECHO)Añadir antlr4 a la escucha de la generación para crear el árbol de parseo de cada entidad
+*(HECHO)Crear una clase para el mapeo de las entidades
+
+*(HECHO)Investigar websocket
+*(HECHO)Definir clases para la comunicación websocket
+*(HECHO)Implementar comunicación websocket(simulación, que cada cierto tiempo envié un mensaje)
+
+*(HECHO)Crear un proyecto que tedrá sólo lo necesario para generar el código
+*(HECHO)Recopilar las plantillas de generación
+
+*(HECHO)Investigar sobre cómo usar Apache Freemaker para generar las plantillas dinámicamente
+*(HECHO)Investigar sobre cómo crear, modificar, eliminar archivos y mover archivos.
+*(HECHO)Investigar sobre cómo empaquetar archivos y eliminarlos después de enviarlos
+
+*(HECHO)Implementar comunicación rest api, para enviar el código generado
+
+Probar la app, los backend generados no deben dar error
+Probar la app, ver si es necesario eliminar los backends después de enviarlos al frontend

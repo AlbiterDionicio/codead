@@ -1,0 +1,33 @@
+package ${_package};
+
+import ${_packageEntities}.*;
+import ${_packageRepositories}.*;
+
+import jakarta.transaction.Transactional;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
+public class ${className}Service extends BaseServiceImplementation<${className}>{
+    <#list relations as relation>
+    @Autowired
+    private ${relation.dataType}Repository ${relation.identifier}Repository;
+    </#list>
+
+    @Override
+    @Transactional
+    public ${className} create(${className} ${classNameCamelCase}){
+        ${className} saved${className} = super.create(${classNameCamelCase});
+        <#list relations as relation>
+        saved${className}.${relation._setIdentifier}(this.load${relation.identifierCamelCase}(saved${className}.${relation._getIdentifier}().getId()));
+        </#list>
+        return saved${className};
+    }
+
+    <#list relations as relation>
+    private ${relation.dataType} load${relation.identifierCamelCase}(Long ${relation.dataTypeCamelCase}Id){
+        return ${relation.identifier}Repository.findById(${relation.dataTypeCamelCase}Id)
+            .orElseThrow(() -> new RuntimeException("${relation.identifier} not found"));
+    }
+    </#list>
+}

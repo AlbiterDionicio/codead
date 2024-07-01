@@ -1,0 +1,18 @@
+package ${_package};
+
+import ${_packageDTOsEntities}.BaseActivatedDTO;
+import ${_packageEntities}.${className};
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+public class ${className}ActivatedDTO extends BaseActivatedDTO<${className}> {
+    @Override
+    public ${className} asEntity() {
+        ${className} ${classNameCamelCase} = new ${className}();
+        ${classNameCamelCase}.setId(this.getId());
+        ${classNameCamelCase}.setActivated(this.getActivated());
+        return ${classNameCamelCase};
+    }
+}

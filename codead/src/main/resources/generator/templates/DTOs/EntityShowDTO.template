@@ -1,0 +1,21 @@
+package ${_package};
+
+import ${_packageDTOsEntities}.BaseShowDTO;
+<#list relations as relation >
+import ${_packageDTOsEntities}.${relation.dataTypeCamelCase}.${relation.dataType}ShowDTO;
+</#list>
+import ${_packageEntities}.*;
+import lombok.Getter;
+import lombok.Setter;
+import java.time.LocalDate;
+
+@Getter
+@Setter
+public class ${className}ShowDTO extends BaseShowDTO<${className}>{
+    <#list fields as field>
+    private ${field.dataType} ${field.identifier};
+    </#list>
+    <#list relations as relation>
+    private ${relation.dataType}ShowDTO ${relation.identifier};
+    </#list>
+}

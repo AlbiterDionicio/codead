@@ -1,0 +1,10 @@
+package ${_package};
+
+import ${_packageEntities}.BaseEntity;
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+public abstract class BaseCreateDTO<E extends BaseEntity> implements BaseDTO<E> {
+}
